@@ -8,7 +8,7 @@
 #include <queue>
 
 #ifndef M_PI
-#define M_PI 3.14/*159265358979323846*/
+#define M_PI 3.14
 #endif
 
 template<typename T>
@@ -49,9 +49,9 @@ private:
 	std::vector<T> vertexV;
 	std::vector<std::vector<int>> adjMatrix;
 	int maxSize;
-	bool isAddingVertex = false; // ���� ��� ���������� �������
-	bool isAddingEdge = false; // ���� ��� ���������� �����
-	T selectedVertex; // ��������� ������� ��� ���������� �����
+	bool isAddingVertex = false; 
+	bool isAddingEdge = false; 
+	T selectedVertex; 
 };
 
 template<typename T>
@@ -106,7 +106,7 @@ void Graph<T>::insertVertex(const T& vert)
 	int newSize = this->vertexV.size();
 	maxSize++;
 
-	// ���������� ������� �������
+	
 	this->adjMatrix.resize(newSize, std::vector<int>(newSize, 0));
 	for (int i = 0; i < newSize - 1; i++)
 	{
@@ -213,7 +213,7 @@ void Reduction(int*** matrix, int VN)
 		for (int j = 0; j < VN; j++)
 			if (matrix[i][j] && min > *matrix[i][j])
 				min = *matrix[i][j];
-		for (int j = 0; j < VN; j++) // �������� �����
+		for (int j = 0; j < VN; j++) 
 			if (matrix[i][j])
 				*matrix[i][j] -= min;
 	}
@@ -223,7 +223,7 @@ void Reduction(int*** matrix, int VN)
 		for (int i = 0; i < VN; i++)
 			if (matrix[i][j] && min > *matrix[i][j])
 				min = *matrix[i][j];
-		for (int i = 0; i < VN; i++) // �������� ��������
+		for (int i = 0; i < VN; i++) 
 			if (matrix[i][j])
 				*matrix[i][j] -= min;
 	}
@@ -240,7 +240,7 @@ void BranchAndBound(int*** matrix, int VN, int** zeroComp, int* wayop)
 			for (int j = 0; j < VN; j++)
 				zeroComp[i][j] = 0;
 
-		for (int i = 0; i < VN; i++) // ���������� ������ ��� ������� ���������
+		for (int i = 0; i < VN; i++) 
 			for (int j = 0; j < VN; j++)
 			{
 				if (matrix[i][j] && !*matrix[i][j])
@@ -256,12 +256,12 @@ void BranchAndBound(int*** matrix, int VN, int** zeroComp, int* wayop)
 						if (l != j && matrix[i][l] && TMP2min > *matrix[i][l])
 							TMP2min = *matrix[i][l];
 
-					zeroComp[i][j] = TMPmin + TMP2min; // ������
+					zeroComp[i][j] = TMPmin + TMP2min; 
 				}
 			}
 
 		int mcost = 0, mi = 0, mj = 0;
-		for (int i = 0; i < VN; i++) // ����� �������� �������� � ���������� �������
+		for (int i = 0; i < VN; i++) 
 			for (int j = 0; j < VN; j++)
 				if (matrix[i][j] && mcost < zeroComp[i][j])
 				{
@@ -271,13 +271,13 @@ void BranchAndBound(int*** matrix, int VN, int** zeroComp, int* wayop)
 				}
 		wayop[mi] = mj;
 
-		for (int i = 0; i < VN; i++) // �������� ������� �� ��������
+		for (int i = 0; i < VN; i++) 
 			matrix[i][mj] = nullptr;
 
-		for (int i = 0; i < VN; i++) // �������� ������� �� �������
+		for (int i = 0; i < VN; i++) 
 			matrix[mi][i] = nullptr;
 
-		matrix[mj][mi] = nullptr; // �������� ������� �������
+		matrix[mj][mi] = nullptr; 
 		printMatrix(matrix, VN);
 	}
 }
@@ -293,7 +293,7 @@ void Graph<T>::TSP()
 	{
 		zeroComp[i] = new int[vertexNum];
 	}
-	for (int i = 0; i < vertexNum; i++) // ����� ������� ��������� ��� ����������� ��������
+	for (int i = 0; i < vertexNum; i++) 
 	{
 		matrix[i] = new int* [vertexNum];
 		for (int j = 0; j < vertexNum; j++)
@@ -345,7 +345,7 @@ void Graph<T>::visualizeGraph(Graph<T>& graph) {
 	window.setFramerateLimit(60);
 	
 
-	// �������� ������
+	
 	std::vector<Vertex<T>> vertices;
 	int numVertices = graph.getAmountVertexes();
 	float radius = 200.0f;
@@ -354,7 +354,7 @@ void Graph<T>::visualizeGraph(Graph<T>& graph) {
 
 	sf::Font font;
 	font.loadFromFile("calibrib.ttf");
-	// ������ ��� �������� � �������� ������
+	
 	sf::RectangleShape addButton(sf::Vector2f(135, 50));
 	addButton.setPosition(10.0f, 10.0f);
 	addButton.setFillColor(sf::Color::Blue);
@@ -385,7 +385,7 @@ void Graph<T>::visualizeGraph(Graph<T>& graph) {
 	addEdgeButtonText.setFillColor(sf::Color::White);
 	addEdgeButtonText.setPosition(addEdgeButton.getPosition() + sf::Vector2f(10.0f, 10.0f));
 
-	//������ ��� ������ ������� ���������
+	
 	sf::RectangleShape addPrintMatrixButton(sf::Vector2f(135, 50));
 	addPrintMatrixButton.setPosition(475.0f, 10.0f);
 	addPrintMatrixButton.setFillColor(sf::Color::Black);
@@ -396,7 +396,7 @@ void Graph<T>::visualizeGraph(Graph<T>& graph) {
 	addPrintMatrixButtonText.setFillColor(sf::Color::White);
 	addPrintMatrixButtonText.setPosition(addPrintMatrixButton.getPosition() + sf::Vector2f(10.0f, 10.0f));
 
-	//TSP button
+	
 	sf::RectangleShape addTSPButton(sf::Vector2f(135, 50));
 	addTSPButton.setPosition(630.0f, 10.0f);
 	addTSPButton.setFillColor(sf::Color(3, 255, 100));
@@ -412,7 +412,7 @@ void Graph<T>::visualizeGraph(Graph<T>& graph) {
 		float x = centerX + radius * std::cos(angle);
 		float y = centerY + radius * std::sin(angle);
 
-		//������� �������
+		
 		Vertex<T> vertex;
 		vertex.shape.setPosition(x, y);
 		vertex.shape.setRadius(30.0f);
@@ -421,7 +421,7 @@ void Graph<T>::visualizeGraph(Graph<T>& graph) {
 		vertex.shape.setOutlineColor(sf::Color::Black);
 		vertex.value = graph.vertexV[i];
 
-		//���������� ������ ������� � ����
+		
 		sf::Text text(std::to_string(vertex.value), font, 20);
 		text.setFillColor(sf::Color::Black);
 		text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
@@ -431,7 +431,7 @@ void Graph<T>::visualizeGraph(Graph<T>& graph) {
 		vertices.push_back(vertex);
 	}
 
-	// �������� �����
+	
 	std::vector<Edge<T>> edges;
 
 	for (int i = 0; i < numVertices; i++) {
@@ -449,17 +449,17 @@ void Graph<T>::visualizeGraph(Graph<T>& graph) {
 				vertices[neighborIndex].shape.getRadius());
 
 			edge.line[0].position = vertexCenter;
-			edge.line[0].color = sf::Color::Red;
+			edge.line[0].color = sf::Color::Black;
 			edge.line[1].position = neighborCenter;
-			edge.line[1].color = sf::Color::Red;
+			edge.line[1].color = sf::Color::Black;
 
-			// ����������� ������� ��� ����������� ������
+			
 			sf::Vector2f startPos = edge.line[0].position;
 			sf::Vector2f endPos = edge.line[1].position;
 			sf::Vector2f Move(0, 15);
 			sf::Vector2f textPos = Move + startPos + (endPos - startPos) / 2.0f;
 
-			// ����������� ������ � ����� ����� ��� ������
+			
 			sf::Text text(std::to_string(graph.getWeight(vertexIndex + 1, neighborIndex + 1)), font, 16);
 			text.setFillColor(sf::Color::Black);
 			text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
