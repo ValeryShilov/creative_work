@@ -1,0 +1,14 @@
+release/addclient.o
+release/base_clients.o
+release/calculateearn.o
+release/client.o
+release/main.o
+release/mainwindow.o
+release/sparcetablemodel.o
+release/welcome.o
+release/moc_addclient.o
+release/moc_base_clients.o
+release/moc_calculateearn.o
+release/moc_mainwindow.o
+release/moc_sparcetablemodel.o
+release/moc_welcome.o
